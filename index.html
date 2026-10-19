@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaragePro Enterprise - Cuong Toan Chain System</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-deep: #030712;
+            --bg-panel: rgba(10, 15, 30, 0.88);
+            --cyan-glow: #00f3ff;
+            --purple-glow: #b000ff;
+            --neon-green: #00ff66;
+            --neon-red: #ff0055;
+            --neon-yellow: #ffcc00;
+            --border-tech: rgba(0, 243, 255, 0.3);
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.02) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, rgba(176, 0, 255, 0.06) 0%, transparent 70%);
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+        }
+
+        /* --- SIDEBAR --- */
+        aside {
+            width: 280px;
+            background: rgba(5, 8, 20, 0.95);
+            border-right: 1px solid var(--border-tech);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 5px 0 25px rgba(0, 243, 255, 0.05);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .logo-area {
+            padding: 22px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-tech);
+            background: rgba(0, 243, 255, 0.02);
+        }
+
+        .logo-area i {
+            font-size: 26px;
+            color: var(--cyan-glow);
+            text-shadow: 0 0 12px var(--cyan-glow);
+        }
+
+        .logo-area h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 15px 10px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-links li {
+            margin-bottom: 6px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan-glow);
+            background: rgba(0, 243, 255, 0.05);
+            border-color: rgba(0, 243, 255, 0.2);
+        }
+
+        .nav-links li.active a {
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.15) 0%, rgba(176, 0, 255, 0.05) 100%);
+            color: var(--cyan-glow);
+            border-color: var(--cyan-glow);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.6);
+        }
+
+        .nav-links a i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .user-profile {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border-tech);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(3, 7, 18, 0.8);
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--cyan-glow);
+            box-shadow: 0 0 10px var(--cyan-glow);
+        }
+
+        .user-info h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .user-info p {
+            font-size: 11px;
+            color: var(--cyan-glow);
+            font-weight: 600;
+        }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        header {
+            background: rgba(5, 8, 20, 0.85);
+            padding: 18px 32px;
+            border-bottom: 1px solid var(--border-tech);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-title h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .branch-selector {
+            background: rgba(10, 15, 30, 0.9);
+            border: 1px solid var(--cyan-glow);
+            color: var(--cyan-glow);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--cyan-glow), #0066ff);
+            color: #030712;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--cyan-glow);
+            background: #fff;
+        }
+
+        .btn-outline {
+            background: rgba(10, 15, 30, 0.8);
+            border: 1px solid var(--border-tech);
+            color: var(--cyan-glow);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: rgba(0, 243, 255, 0.1);
+            color: #fff;
+            border-color: #fff;
+        }
+
+        /* --- CONTENT VIEWS --- */
+        .content-body {
+            padding: 28px 32px;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+            animation: cyberFade 0.3s ease;
+        }
+
+        @keyframes cyberFade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- STATS GRID --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-panel);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-tech);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .stat-card .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-card span {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .stat-card i {
+            font-size: 18px;
+            color: var(--cyan-glow);
+        }
+
+        .stat-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .tech-desc {
+            font-size: 12px;
+            color: var(--neon-green);
+            background: rgba(0, 255, 102, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            width: fit-content;
+            border: 1px solid rgba(0, 255, 102, 0.2);
+        }
+
+        /* --- CARD & TABLE --- */
+        .card {
+            background: var(--bg-panel);
+            border-radius: 12px;
+            border: 1px solid var(--border-tech);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-tech);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 243, 255, 0.02);
+        }
+
+        .card-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 15px 24px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+            font-size: 14px;
+        }
+
+        th {
+            background: rgba(3, 7, 18, 0.9);
+            font-weight: 700;
+            color: var(--cyan-glow);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        tr:hover {
+            background: rgba(0, 243, 255, 0.04);
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .badge.warning { background: rgba(255, 204, 0, 0.15); color: var(--neon-yellow); border: 1px solid rgba(255, 204, 0, 0.4); }
+        .badge.info { background: rgba(0, 243, 255, 0.15); color: var(--cyan-glow); border: 1px solid rgba(0, 243, 255, 0.4); }
+        .badge.success { background: rgba(0, 255, 102, 0.15); color: var(--neon-green); border: 1px solid rgba(0, 255, 102, 0.4); }
+        .badge.danger { background: rgba(255, 0, 85, 0.15); color: var(--neon-red); border: 1px solid rgba(255, 0, 85, 0.4); }
+
+        /* --- ADVANCED STRUCTURED MODULES STYLING --- */
+        .search-box-vin {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .search-box-vin input {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(3, 7, 18, 0.9);
+            border: 1px solid var(--border-tech);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+        .search-box-vin input:focus { border-color: var(--cyan-glow); }
+
+        .grid-2cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .inventory-alert {
+            background: rgba(255, 0, 85, 0.1);
+            border: 1px solid var(--neon-red);
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        /* --- FEEDBACK DUAL SECTION --- */
+        .feedback-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .feedback-column {
+            background: var(--bg-panel);
+            border-radius: 12px;
+            border: 1px solid var(--border-tech);
+            padding: 20px;
+        }
+        .feedback-column.positive { border-top: 4px solid var(--neon-green); }
+        .feedback-column.negative { border-top: 4px solid var(--neon-red); }
+        .feedback-column h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .feedback-item {
+            background: rgba(3, 7, 18, 0.7);
+            border: 1px solid var(--border-tech);
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .feedback-user {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .feedback-user h5 { font-size: 14px; color: #fff; }
+        .feedback-stars { color: var(--neon-yellow); font-size: 12px; }
+        .feedback-text { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal {
+            background: #0a0f1e;
+            border: 2px solid var(--cyan-glow);
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.3);
+            width: 480px;
+            border-radius: 12px;
+            padding: 28px;
+        }
+        .modal h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--cyan-glow);
+            text-transform: uppercase;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(3, 7, 18, 0.9);
+            border: 1px solid var(--border-tech);
+            border-radius: 6px;
+            font-size: 14px;
+            color: #fff;
+            outline: none;
+        }
+        .form-group input:focus, .form-group select:focus { border-color: var(--cyan-glow); }
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside>
+        <div>
+            <div class="logo-area">
+                <i class="fa-solid fa-microchip"></i>
+                <h1>GaragePro</h1>
+            </div>
+            <ul class="nav-links">
+                <li class="active" onclick="switchTab('dashboard', this)"><a href="javascript:void(0)"><i class="fa-solid fa-chart-pie"></i> Tổng quan chuỗi</a></li>
+                <li onclick="switchTab('history', this)"><a href="javascript:void(0)"><i class="fa-solid fa-file-medical"></i> Lịch sử xe (VIN)</a></li>
+                <li onclick="switchTab('workshop', this)"><a href="javascript:void(0)"><i class="fa-solid fa-screwdriver-wrench"></i> Xưởng & Mobile Thợ</a></li>
+                <li onclick="switchTab('inventory', this)"><a href="javascript:void(0)"><i class="fa-solid fa-boxes-stacked"></i> Kho thời gian thực</a></li>
+                <li onclick="switchTab('payment', this)"><a href="javascript:void(0)"><i class="fa-solid fa-file-invoice-dollar"></i> POS & Thanh toán QR</a></li>
+                <li onclick="switchTab('crm', this)"><a href="javascript:void(0)"><i class="fa-solid fa-comments-dollar"></i> CRM & Zalo ZNS</a></li>
+                <li onclick="switchTab('feedback', this)"><a href="javascript:void(0)"><i class="fa-solid fa-comments"></i> Phản hồi khách hàng</a></li>
+            </ul>
+        </div>
+        <div class="user-profile">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Avatar">
+            <div class="user-info">
+                <h4>Cuong Toan</h4>
+                <p>Chủ Gara Multi-Tenant</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Section -->
+    <main>
+        <header>
+            <div class="header-title">
+                <h2 id="pageTitle">Tổng quan hệ thống</h2>
+            </div>
+            <div class="header-actions">
+                <select class="branch-selector">
+                    <option>📍 Chi nhánh 1: Hà Nội (Trụ sở)</option>
+                    <option>📍 Chi nhánh 2: TP. Hồ Chí Minh</option>
+                    <option>📍 Chi nhánh 3: Đà Nẵng</option>
+                </select>
+                <button class="btn btn-outline"><i class="fa-regular fa-bell"></i></button>
+                <button class="btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> Tiếp nhận xe mới</button>
+            </div>
+        </header>
+
+        <div class="content-body">
+            
+            <!-- 1. TỔNG QUAN TAB -->
+            <div id="tab-dashboard" class="tab-panel active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="card-top">
+                            <span>Xe trong toàn chuỗi</span>
+                            <i class="fa-solid fa-car"></i>
+                        </div>
+                        <h3>24 Chiếc</h3>
+                        <div class="tech-desc"><i class="fa-solid fa-arrow-trend-up"></i> Đang đồng bộ Cloud</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="card-top">
+                            <span>Cần duyệt báo giá</span>
+                            <i class="fa-solid fa-file-invoice" style="color: var(--neon-yellow);"></i>
+                        </div>
+                        <h3>3 Xe</h3>
+                        <div class="tech-desc" style="color: var(--neon-yellow); background: rgba(255,204,0,0.1);">⚠️ Chờ khách xác nhận</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="card-top">
+                            <span>Doanh thu chuỗi ngày</span>
+                            <i class="fa-solid fa-wallet" style="color: var(--neon-green);"></i>
+                        </div>
+                        <h3>48.500.000 đ</h3>
+                        <div class="tech-desc"><i class="fa-solid fa-arrow-trend-up"></i> +18% hôm qua</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="card-top">
+                            <span>Cảnh báo phụ tùng</span>
+                            <i class="fa-solid fa-triangle-exclamation" style="color: var(--neon-red);"></i>
+                        </div>
+                        <h3>2 Linh kiện</h3>
+                        <div class="tech-desc" style="color: var(--neon-red); background: rgba(255,0,85,0.1);">Dưới định mức tối thiểu</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Danh sách xe đang sửa chữa toàn chuỗi</h3>
+                        <span style="font-size: 12px; color: var(--cyan-glow); font-family: 'Orbitron';"><i class="fa-solid fa-circle-nodes"></i> Multi-Tenant Active</span>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Biển số / Số VIN</th>
+                                <th>Khách hàng</th>
+                                <th>Dòng xe</th>
+                                <th>Chi nhánh</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="carTableBody">
+                            <tr>
+                                <td><strong style="color: var(--cyan-glow); font-family: 'Orbitron';">30E-888.66</strong><br><small style="color:var(--text-muted)">VIN: RL4H...992</small></td>
+                                <td>Trần Hoàng Nam</td>
+                                <td>Mazda CX-5</td>
+                                <td>Hà Nội</td>
+                                <td><span class="badge warning">Đang kiểm tra</span></td>
+                                <td><button class="btn-outline" style="padding: 5px 10px; font-size: 12px; border-radius: 4px; cursor: pointer;">Hồ sơ</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--cyan-glow); font-family: 'Orbitron';">51G-123.45</strong><br><small style="color:var(--text-muted)">VIN: KNDP...441</small></td>
+                                <td>Nguyễn Thị Mai</td>
+                                <td>Toyota Vios</td>
+                                <td>Hồ Chí Minh</td>
+                                <td><span class="badge info">Đang sửa chữa</span></td>
+                                <td><button class="btn-outline" style="padding: 5px 10px; font-size: 12px; border-radius: 4px; cursor: pointer;">Hồ sơ</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 2. LỊCH SỬ BẢO DƯỠNG (VIN) TAB -->
+            <div id="tab-history" class="tab-panel">
+                <div class="card">
+                    <div class="card-header"><h3>Tra Cứu Lịch Sử Sửa Chữa Toàn Chuỗi (Theo Số VIN / Biển số)</h3></div>
+                    <div style="padding: 24px;">
+                        <div class="search-box-vin">
+                            <input type="text" placeholder="Nhập số khung (VIN) hoặc Biển số xe để tra cứu lịch sử đồng bộ...">
+                            <button class="btn"><i class="fa-solid fa-magnifying-glass"></i> Tra cứu</button>
+                        </div>
+                        <div style="background: rgba(3,7,18,0.6); border: 1px solid var(--border-tech); padding: 18px; border-radius: 8px;">
+                            <h4 style="color: var(--cyan-glow); margin-bottom: 8px;"><i class="fa-solid fa-car-side"></i> Kết quả mẫu: Mazda CX-5 (Biển: 30E-888.66)</h4>
+                            <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">Đã bảo dưỡng 3 lần tại hệ thống chuỗi Cuong Toan. Lần gần nhất thay dầu máy tại Chi nhánh Đà Nẵng cách đây 5,000 km.</p>
+                            <span class="badge success">Đồng bộ dữ liệu toàn chuỗi 100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. XƯỞNG & MOBILE THỢ TAB -->
+            <div id="tab-workshop" class="tab-panel">
+                <div class="card">
+                    <div class="card-header"><h3>Giám Sát Thợ & Lệnh Sửa Chữa (Mobile App Sync)</h3></div>
+                    <div style="padding: 24px;">
+                        <div class="grid-2cols">
+                            <div style="background: rgba(3,7,18,0.6); border: 1px solid var(--border-tech); padding: 18px; border-radius: 8px;">
+                                <h4 style="color: #fff; margin-bottom: 10px;">Kỹ thuật viên: Lê Minh Tuấn</h4>
+                                <p style="font-size: 13px; color: var(--neon-yellow); margin-bottom: 8px;">Trạng thái: Đang thực hiện lệnh #WO-992</p>
+                                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">Đã chụp ảnh hiện trạng & gửi duyệt thay má phanh.</p>
+                                <span class="badge info">Hoa hồng tự động: 350.000 đ</span>
+                            </div>
+                            <div style="background: rgba(3,7,18,0.6); border: 1px solid var(--border-tech); padding: 18px; border-radius: 8px;">
+                                <h4 style="color: #fff; margin-bottom: 10px;">Kỹ thuật viên: Phạm Văn Đức</h4>
+                                <p style="font-size: 13px; color: var(--neon-green); margin-bottom: 8px;">Trạng thái: Hoàn thành lệnh #WO-991</p>
+                                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">Chờ thủ quỹ nghiệm thu và bàn giao xe.</p>
+                                <span class="badge success">Hoa hồng tự động: 500.000 đ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. KHO THỜI GIAN THỰC TAB -->
+            <div id="tab-inventory" class="tab-panel">
+                <div class="card">
+                    <div class="card-header"><h3>Quản Lý Kho Chống Thất Thoát (Real-Time Auto-Deduct)</h3></div>
+                    <div style="padding: 24px;">
+                        <div class="inventory-alert">
+                            <span><i class="fa-solid fa-triangle-exclamation"></i> CẢNH BÁO: Dầu động cơ Castrol 5W-40 chỉ còn 3 bình trong kho tổng!</span>
+                            <button class="btn" style="padding: 6px 12px; font-size: 11px;">Nhập hàng ngay</button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã linh kiện</th>
+                                    <th>Tên phụ tùng</th>
+                                    <th>Tồn kho thời gian thực</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>PT-101</td>
+                                    <td>Lọc gió động cơ Toyota Vios</td>
+                                    <td><strong>18 Cái</strong></td>
+                                    <td><span class="badge success">Đủ định mức</span></td>
+                                </tr>
+                                <tr>
+                                    <td>PT-205</td>
+                                    <td>Má phanh trước Mazda CX-5</td>
+                                    <td><strong>4 Bộ</strong></td>
+                                    <td><span class="badge warning">Sắp chạm ngưỡng</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. POS & THANH TOÁN QR TAB -->
+            <div id="tab-payment" class="tab-panel">
+                <div class="card">
+                    <div class="card-header"><h3>Thu Ngân & Cổng Thanh Toán QR Nhanh</h3></div>
+                    <div style="padding: 24px; color: #94a3b8; font-size: 15px;">
+                        Dữ liệu từ lệnh sửa chữa tự động đẩy sang màn hình thu ngân, áp mã giảm giá VIP và tích điểm thành viên chuỗi tức thì qua mã QR Code.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. CRM & ZALO ZNS TAB -->
+            <div id="tab-crm" class="tab-panel">
+                <div class="card">
+                    <div class="card-header"><h3>Hệ Thống CRM & Tự Động Gửi Zalo ZNS Nhắc Lịch</h3></div>
+                    <div style="padding: 24px; color: #94a3b8; font-size: 15px;">
+                        Thuật toán dự đoán ngày chạy của xe để tự động gửi tin nhắn chăm sóc, nhắc lịch bảo dưỡng định kỳ và quản lý hạng thẻ VIP toàn hệ thống chuỗi.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. PHẢN HỒI KHÁCH HÀNG (FEEDBACK) TAB -->
+            <div id="tab-feedback" class="tab-panel">
+                <div class="feedback-grid">
+                    <div class="feedback-column positive">
+                        <h3 style="color: var(--neon-green);"><i class="fa-solid fa-circle-check"></i> Phản Hồi Tích Cực (Positive)</h3>
+                        <div class="feedback-item">
+                            <div class="feedback-user">
+                                <h5>Anh Trần Hoàng Nam (30E-888.66)</h5>
+                                <div class="feedback-stars">★★★★★</div>
+                            </div>
+                            <p class="feedback-text">Gara Cuong Toan chi nhánh nào cũng chuyên nghiệp như nhau! Đồng bộ lịch sử xe cực kỳ tiện lợi.</p>
+                        </div>
+                    </div>
+                    <div class="feedback-column negative">
+                        <h3 style="color: var(--neon-red);"><i class="fa-solid fa-triangle-exclamation"></i> Phản Hồi Tiêu Cực & Góp Ý</h3>
+                        <div class="feedback-item">
+                            <div class="feedback-user">
+                                <h5>Anh Hoàng Quốc Việt (29A-999.99)</h5>
+                                <div class="feedback-stars" style="color: var(--neon-red);">★★☆☆☆</div>
+                            </div>
+                            <p class="feedback-text">Thời gian chờ xuất hóa đơn tại chi nhánh 2 hơi lâu vào giờ cao điểm.</p>
+                            <span class="badge danger" style="margin-top: 8px;">Đã ghi nhận & Khắc phục</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal Tiếp nhận xe -->
+    <div class="modal-overlay" id="carModal">
+        <div class="modal">
+            <h3>TIẾP NHẬN XE MỚI (MULTI-TENANT)</h3>
+            <div class="form-group">
+                <label>Biển số xe / Số khung (VIN)</label>
+                <input type="text" id="plateInput" placeholder="Ví dụ: 30K-123.45 hoặc VIN...">
+            </div>
+            <div class="form-group">
+                <label>Tên khách hàng</label>
+                <input type="text" id="nameInput" placeholder="Ví dụ: Nguyễn Văn A">
+            </div>
+            <div class="form-group">
+                <label>Dòng xe & Hãng</label>
+                <input type="text" id="carModelInput"
